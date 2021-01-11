@@ -12,7 +12,7 @@ const initialState = {
     successMsg:""
 };
 
-const authRoutes = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch(action.type){
         case LOGIN_REQUEST:
             return {
@@ -27,8 +27,8 @@ const authRoutes = (state = initialState, action) => {
                 ...action.payload,
                 isAuthenticated: true,
                 isLoading: false,
-                userId:action.payload.userId,
-                userRole:action.payload.userRole,
+                userId:action.payload.userid,
+                userRole:action.payload.user.role,
                 errorMsg:""
             }
             case LOGIN_FAILURE:
@@ -36,9 +36,10 @@ const authRoutes = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload,
-                isAuthenticated: null,
+                isAuthenticated: false,
                 isLoading: false,
                 token:null,
+                user:null,
                 userId:null,
                 userRole:null,
                 errorMsg:action.payload.data.msg
